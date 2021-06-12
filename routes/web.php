@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [Controllers\DepapokanController::class, 'index']);
+
+Route::get('/tambah', [Controllers\DepapokanController::class, 'viewTambah'])->name('tambah');
+Route::post('/tambah', [Controllers\DepapokanController::class, 'tambah']);
+
+Route::get('/item/{id}', [Controllers\DepapokanController::class, 'viewUbah'])->name('ubah');
+Route::patch('/item/{id}', [Controllers\DepapokanController::class, 'ubah']);
+Route::delete('/item/{id}', [Controllers\DepapokanController::class, 'hapus']);
