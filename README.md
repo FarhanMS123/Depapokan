@@ -3,7 +3,7 @@
 ## Installation
 
 1. Duplicate `.env.example` to be `.env`
-2. Setting the database cofiguration
+2. Setting the database cofiguration in `.env`
 
 ```ENV
 DB_CONNECTION=mysql

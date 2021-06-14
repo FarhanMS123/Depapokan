@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers;
+use App\Http\Controllers\DepapokanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +15,16 @@ use App\Http\Controllers;
 |
 */
 
-Route::get('/', [Controllers\DepapokanController::class, 'index']);
+Route::get('/', [DepapokanController::class, 'index']);
 
-Route::get('/tambah', [Controllers\DepapokanController::class, 'viewTambah'])->name('tambah');
-Route::post('/tambah', [Controllers\DepapokanController::class, 'tambah']);
+Route::get('/tambah', [DepapokanController::class, 'viewTambah'])->name('tambah');
+Route::post('/tambah', [DepapokanController::class, 'tambah']);
 
-Route::get('/item/{id}', [Controllers\DepapokanController::class, 'viewUbah'])->name('ubah');
-Route::patch('/item/{id}', [Controllers\DepapokanController::class, 'ubah']);
-Route::delete('/item/{id}', [Controllers\DepapokanController::class, 'hapus']);
+Route::get('/item/{id}', [DepapokanController::class, 'viewUbah'])->name('ubah');
+Route::patch('/item/{id}', [DepapokanController::class, 'ubah']);
+Route::delete('/item/{id}', [DepapokanController::class, 'hapus']);
+
+Route::get('/item/{id}/ulasan', [DepapokanController::class, 'viewUlasan'])->name('ulas');
+Route::post('/item/{id}/ulasan', [DepapokanController::class, 'ulas']);
+Route::patch('/item/{id}/ulasan/{uid}', [DepapokanController::class, 'ubahUlasan'])->name('ulasan');
+Route::delete('/item/{id}/ulasan/{uid}', [DepapokanController::class, 'hapusUlasan']);

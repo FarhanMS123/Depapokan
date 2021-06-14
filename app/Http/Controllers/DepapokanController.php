@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Padepokan;
+use App\Models\Ulasan;
 
 class DepapokanController extends Controller
 {
@@ -12,6 +13,12 @@ class DepapokanController extends Controller
         $padepokans = Padepokan::all();
 
         return view('index', compact("padepokans"));
+    }
+
+    public function hapus($id, Request $request){
+        Padepokan::destroy($id);
+
+        return back();
     }
 
     public function viewTambah(){
@@ -59,8 +66,44 @@ class DepapokanController extends Controller
         return redirect("/");
     }
 
-    public function hapus($id, Request $request){
-        Padepokan::destroy($id);
+    public function viewUlasan($id, Request $request){
+        $padepokan = Padepokan::findOrFail($id);
+
+        return view('ulasan', compact('padepokan', 'id'));
+    }
+
+    public function ulas($id, Request $request){
+        $request->validate([
+            'nama' => ['required', 'string'],
+            'ulasan' => ['required', 'string']
+        ]);
+
+        $padepokan = Padepokan::findOrFail($id);
+
+        $padepokan->ulasan()->create([
+            'name' => $request->nama,
+            'comment' => $request->ulasan
+        ]);
+
+        return back();
+    }
+
+    public function ubahUlasan($id, $uid, Request $request){
+        $request->validate([
+            'nama' => ['required', 'string'],
+            'ulasan' => ['required', 'string']
+        ]);
+
+        Ulasan::findOrFail($uid)->update([
+            'name' => $request->nama,
+            'comment' => $request->ulasan
+        ]);
+
+        return back();
+    }
+
+    public function hapusUlasan($id, $uid, Request $request){
+        Ulasan::destroy($uid);
 
         return back();
     }

@@ -10,4 +10,8 @@ class Padepokan extends Model
     use HasFactory;
 
     protected $fillable = ['nama', 'gambar', 'deskripsi'];
+
+    public function ulasan(){
+        return $this->hasMany(Ulasan::class);
+    }
 }

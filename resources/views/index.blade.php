@@ -31,6 +31,9 @@
                                 @method("DELETE")
                                 <button type="submit" class="btn btn-danger">Hapus</button>
                             </form>
+                            <div class="mt-1">
+                                <a href="{{ route('ulas', $padepokan->id) }}" type="button" class="btn btn-success">Ulasan ({{ $padepokan->ulasan->count() }})</a>
+                            </div>
                         </div>
                     </div>
                 </li>
