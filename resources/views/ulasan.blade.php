@@ -69,9 +69,9 @@
         <div class="card mt-4">
             @foreach ($padepokan->ulasan as $ulasan)
             <div class="card-body @if(!$loop->first) border-top @endif" data-id="{{ $padepokan->id }}" data-uid="{{ $ulasan->id }}">
-                <h4 class="card-title">{{$ulasan->name}}</h4>
+                <h4 class="card-title" name='nama'>{{$ulasan->name}}</h4>
                 <p class="text-muted">{{$ulasan->created_at}}</p>
-                <p class="card-text">{{$ulasan->comment}}</p>
+                <p class="card-text" name='ulasan'>{{$ulasan->comment}}</p>
                 <div>
                     <button type="button" class="btn btn-link text-muted" data-id="{{ $padepokan->id }}" data-uid="{{$ulasan->id}}" onclick="btnUbah(event, '{{ $padepokan->id }}', '{{ $ulasan->id }}');">Ubah</button>
                     <form class="d-inline-block" action="{{ route('ulasan', [$padepokan->id, $ulasan->id]) }}" method="post">
@@ -105,28 +105,33 @@
             var bound = cardBody[0].getBoundingClientRect();
             var conUbah = $("#conUbah");
 
+            conUbah.find("input[name=nama]").val(cardBody.find('h4[name=nama]').text());
+            conUbah.find("textarea[name=ulasan]").val(cardBody.find('p[name=ulasan]').text());
+
             conUbah.removeClass('d-none')
                 .css({
                     "opacity":"0.0",
                     "top": `${bound.top + window.scrollY}px`,
                     "left": `${bound.left + window.scrollX}px`,
-                    "width": `${bound.width}px`,
-                    "transition": "all 0.2s ease 0s"
+                    "width": `${bound.width}px`
                 });
 
-            conUbah.css({
-                    "opacity": "1.0",
-                    "top": `calc(${bound.top + window.scrollY}px - 1em)`,
-                    "left": `calc(${bound.left + window.scrollX}px - 1em)`,
-                    "width": `calc(${bound.width}px + 2em)`,
-                });
+            setTimeout(function(){
+                conUbah.css({"transition": "all 0.2s ease 0s"})
+                    .css({
+                        "opacity": "1.0",
+                        "top": `calc(${bound.top + window.scrollY}px - 1em)`,
+                        "left": `calc(${bound.left + window.scrollX}px - 1em)`,
+                        "width": `calc(${bound.width}px + 2em)`,
+                    });
 
-            conUbah.attr('data-id', id).attr('data-uid', uid);
+                conUbah.attr('data-id', id).attr('data-uid', uid);
 
-            var url = $("meta[name='ulasan']").attr('content');
-            url = url.replace(/\/id\//ig, `/${id}/`);
-            url = url.replace(/\/uid/ig, `/${uid}`);
-            $("#conUbah form").attr('action', url);
+                var url = $("meta[name='ulasan']").attr('content');
+                url = url.replace(/\/id\//ig, `/${id}/`);
+                url = url.replace(/\/uid/ig, `/${uid}`);
+                $("#conUbah form").attr('action', url);
+            }, 1);
         }
 
         function closeConUbah(event){
@@ -146,7 +151,7 @@
                 });
 
             setTimeout(function(){
-                conUbah.addClass('d-none').css('transition',  'none');
+                conUbah.addClass('d-none').css('transition',  '');
             }, 200);
 
             conUbah.attr('data-id', null).attr('data-uid', null);
