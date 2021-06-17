@@ -28,3 +28,7 @@ Route::get('/item/{id}/ulasan', [DepapokanController::class, 'viewUlasan'])->nam
 Route::post('/item/{id}/ulasan', [DepapokanController::class, 'ulas']);
 Route::patch('/item/{id}/ulasan/{uid}', [DepapokanController::class, 'ubahUlasan'])->name('ulasan');
 Route::delete('/item/{id}/ulasan/{uid}', [DepapokanController::class, 'hapusUlasan']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
