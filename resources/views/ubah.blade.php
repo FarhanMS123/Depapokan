@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Depapokan</title>
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/app.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/old_app.css') }}">
+    <script src="{{ asset('js/old_app.js') }}"></script>
 </head>
 <body class="p-0 pt-5 pb-4 m-0" style="background: #EEEEEE;">
     <div class="row justify-content-center">
